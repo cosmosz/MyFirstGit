@@ -1,0 +1,113 @@
+1.基本操作命令
+cd 进入默认目录
+cd D:/GitProject  改变目录至D:/GitProject
+cd .. 回退到上级目录
+
+pwd 显示当前所在目录位置
+
+ls 列出当前目录中的所有文件名称
+ll 列出当前目录中的所有文件个数，文件详细，包括文件名称，创建日期等
+
+touch filename 新建文件在当前目录
+rm filename   删除当前目录下的文件
+mkdir 当前目录下新建文件夹
+rm -r filename   删除当前目录下的文件夹
+
+reset 重新初始化终端/清屏
+clear 清屏
+history 查看命令历史
+help 帮助
+exit退出
+#表示注释
+
+2.git配置
+git config -l 查看现在的git环境详细配置
+git config --system --list 查看系统配置
+git config --global --list 查看当前用户（global）配置
+git config --local --list  查看当前仓库配置信息
+
+git config --global user.name yyc  #设置名称
+git config --global user.email 1040658628@qq.com   #设置邮箱
+
+git config [--local|--global|--system]  section.key value 添加配置项
+git config [--local|--global|--system] --unset section.key 删除配置项
+[--local|--global|--system]  #可选的，对应本地，全局，系统不同级别的设置
+section.key #区域下的键
+value #对应的值
+eg：git config --global  student.height 198
+
+
+3.文件操作命令
+git status 查看所有文件状态
+git status filename 查看指定文件状态
+
+git diff 查看工作区文件相对暂存区的修改内容
+git diff HEAD -- filename 查看工作区文件相对仓库的修改内容
+git diff --cached 查看暂存区相对仓库的修改内容
+
+git add . 添加当前目录所有文件到暂存区
+git add filename 添加指定文件到暂存区
+git add dir 添加指定目录到暂存区，包括子目录
+
+git commit -m "commit说明" 把暂存区所有文件提交到仓库
+git commit -a 将工作区内容提交到仓库，跳过add，对新文件无效
+git commit --amend -m "commit说明" 文件有变化时，替代上一次提交
+ 当文件没用任何变化时，改写上一次的commit说明
+
+git rm --cached filename 从暂存区删除文件
+
+git log 查看提交日志
+git reflog 查看历史命令日志
+
+git reset --hard HEAD~n 回退某次commit后的版本， 撤销并删除相应的更新
+git reset --hard commit_id 通过指定commit_id回退到某次commit后的版本 
+git revert commit_id  把指定的提交的所有修改回滚，并同时生成一个新的提交。
+
+git checkout -- filename 把文件在最近一次提交后的修改全部撤销，回到最近一次commit或者add时的状态
+git reset HEAD filename 回退版本，可以把暂存区的修改回退到工作区
+
+
+
+4.仓库相关命令
+git init  在当前目录新建一个git仓库
+git init filename 创建filename目录并在其目录下创建仓库
+
+ssh-keygen -t rsa -C "1040658628@qq.com.com"  创建SSH key
+clip < ~/.ssh/id_rsa.pub 复制ssh key
+
+git remote add origin git@github.com:name/gitname.git 建立远程仓库
+git clone url 克隆远程仓库到当前目录
+
+git push -u origin master 当前分支内容推送到远程仓库，首次推送需要加上 -u，用于关联master分支
+git push origin master  推送分支最新修改到远程仓库
+git pull 获取远程库内容
+
+git remote 查看远程库信息
+git remote -v 显示更详细的远程库信息
+
+
+
+5.分支操作命令
+git branch dev  创建dev分支
+git checkout dev 切换到dev分支 ，注意与git checkout -- filename的区别
+git checkout -b dev 创建dev分支，并切换到dev分支
+git checkout -b branch-name origin/branch-name 在本地创建和远程分支对应的分支
+
+git branch 查看所有本地分支和当前所处分支
+git branch -r 查看所有远程分支
+git branch -a 查看所有本地分支和远程分支
+git branch --set-upstream branch-name origin/branch-name 建立本地分支与远程仓库分支的关联
+
+git merge dev 合并dev分支的修改内容到当前分支
+git merge --no-ff -m "merge with no-ff" dev 合并dev分支，禁用fast forward
+
+git branch -d dev 删除dev分支
+git branch -D <name> 丢弃一个没有合并过的分支，强制删除该分支
+
+git stash 储藏当前工作现场
+git stash list 查看存储的工作现场列表
+git stash pop 恢复工作现场，并删除该stash
+git stash apply stashid 恢复现场，但不删除stash
+git stash drop  stashid  删除stash
+
+git log --graph 查看分支合并图
